@@ -1,4 +1,4 @@
-# AI-Powered Direct File System - Project Plan
+# Direct File System - Project Plan
 
 ## System Architecture
 
@@ -6,31 +6,21 @@
 graph TB
     subgraph Frontend
         UI[Web UI]
-        Chat[AI Chat Interface]
+        Wizard[Tax Filing Wizard]
         Forms[Smart Forms]
     end
 
     subgraph Backend
-        API[API Gateway]
-        AI[AI Processing Layer]
-        Tax[Tax Logic Engine]
-        DB[(Database)]
+        API[Express API]
+        Logger[Logging System]
+        Validator[Data Validator]
     end
 
-    subgraph External
-        IRS[IRS e-File API]
-        OpenAI[OpenAI API]
-    end
-
-    UI --> Chat
-    UI --> Forms
-    Chat --> API
+    UI --> Wizard
+    Wizard --> Forms
     Forms --> API
-    API --> AI
-    AI --> OpenAI
-    AI --> Tax
-    Tax --> DB
-    Tax --> IRS
+    API --> Logger
+    API --> Validator
 ```
 
 ## User Flow
@@ -38,40 +28,43 @@ graph TB
 ```mermaid
 sequenceDiagram
     participant User
-    participant AI
+    participant Wizard
     participant System
-    participant IRS
+    participant Logger
 
-    User->>AI: Start Tax Filing
-    AI->>User: Ask Basic Questions
-    User->>AI: Provide Information
-    AI->>System: Process Information
-    System->>AI: Validate & Suggest
-    AI->>User: Clarify/Confirm Details
-    User->>AI: Confirm Information
-    System->>IRS: Submit Tax Return
-    IRS->>User: Confirmation
+    User->>Wizard: Start Tax Filing
+    Wizard->>User: Show Personal Info Form
+    User->>Wizard: Enter Personal Details
+    Wizard->>System: Validate Data
+    System->>Wizard: Show Income Form
+    User->>Wizard: Enter Income Details
+    Wizard->>System: Validate Data
+    System->>Logger: Log Progress
+    Wizard->>User: Show Deductions Form
+    User->>Wizard: Enter Deductions
+    Wizard->>System: Final Validation
+    System->>Logger: Log Completion
 ```
 
 ## Key Features
 
-1. **AI-Powered Chat Interface**
-   - Natural language processing for tax questions
-   - Context-aware responses
-   - Progressive information gathering
-   - Real-time validation and suggestions
+1. **Wizard-Based Interface**
+   - Step-by-step tax filing process
+   - Form validation
+   - Progress tracking
+   - Error handling
 
 2. **Smart Forms**
-   - Dynamic form generation based on user situation
-   - Auto-fill capabilities
-   - Real-time error checking
-   - Progress tracking
+   - Dynamic form generation
+   - Real-time validation
+   - User-friendly error messages
+   - Progress indicators
 
-3. **Tax Logic Engine**
-   - Rule-based tax calculation
-   - Deduction optimization
-   - Compliance checking
-   - Audit trail generation
+3. **Backend Services**
+   - RESTful API endpoints
+   - Data validation
+   - Logging system
+   - Error handling
 
 ## Technical Stack
 
@@ -81,52 +74,44 @@ graph LR
         React[React.js]
         Tailwind[Tailwind CSS]
         TypeScript[TypeScript]
+        Vite[Vite]
     end
 
     subgraph Backend
         Node[Node.js]
         Express[Express.js]
-        MongoDB[MongoDB]
-    end
-
-    subgraph AI
-        OpenAI[OpenAI API]
-        LangChain[LangChain]
-        VectorDB[Vector Database]
+        Logger[Winston Logger]
     end
 
     React --> Express
-    Express --> OpenAI
-    Express --> MongoDB
-    OpenAI --> LangChain
-    LangChain --> VectorDB
+    Express --> Logger
 ```
 
 ## Development Phases
 
-1. **Phase 1: Foundation (2 weeks)**
+1. **Phase 1: Foundation (Completed)**
    - Basic web UI setup
-   - OpenAI integration
-   - Simple chat interface
-   - Basic form handling
-
-2. **Phase 2: Core Features (3 weeks)**
-   - Tax logic implementation
+   - Wizard component implementation
    - Form validation
-   - Data persistence
-   - IRS API integration
+   - Backend API setup
 
-3. **Phase 3: AI Enhancement (2 weeks)**
-   - Advanced chat capabilities
-   - Context management
+2. **Phase 2: Core Features (In Progress)**
+   - Additional form steps
+   - Enhanced validation
+   - Progress tracking
+   - Logging system
+
+3. **Phase 3: Enhancement (Planned)**
+   - State management
    - Error handling
    - User guidance
+   - Accessibility improvements
 
-4. **Phase 4: Testing & Security (2 weeks)**
+4. **Phase 4: Testing & Security (Planned)**
    - Security audit
    - Performance testing
    - User testing
-   - IRS compliance verification
+   - Documentation
 
 ## Security Considerations
 
@@ -134,71 +119,71 @@ graph LR
 graph TB
     subgraph Security
         Auth[Authentication]
-        Encrypt[Encryption]
-        Audit[Audit Logging]
-        PII[PII Protection]
+        Validator[Data Validation]
+        Logger[Audit Logging]
+        Privacy[Privacy Protection]
     end
 
     subgraph Compliance
-        IRS[IRS Requirements]
-        GDPR[GDPR]
-        CCPA[CCPA]
+        Standards[Web Standards]
+        Accessibility[WCAG]
+        Security[OWASP]
     end
 
-    Auth --> Encrypt
-    Encrypt --> PII
-    PII --> Audit
-    Audit --> Compliance
-    Compliance --> IRS
+    Auth --> Validator
+    Validator --> Privacy
+    Privacy --> Logger
+    Logger --> Compliance
+    Compliance --> Standards
 ```
 
 ## Success Metrics
 
 1. **User Experience**
    - Time to complete filing
-   - Number of questions needed
+   - Number of errors encountered
    - User satisfaction score
-   - Error rate
+   - Form completion rate
 
 2. **System Performance**
    - Response time
-   - Accuracy rate
+   - Validation accuracy
    - System uptime
-   - Resource utilization
+   - Error rate
 
-3. **Business Goals**
-   - Number of successful filings
-   - User retention
-   - Cost per filing
-   - IRS acceptance rate
+3. **Development Goals**
+   - Code quality
+   - Test coverage
+   - Documentation completeness
+   - Accessibility compliance
 
 ## Next Steps
 
-1. Set up development environment
-2. Create basic project structure
-3. Implement authentication system
-4. Develop initial chat interface
-5. Set up OpenAI integration
-6. Create basic tax logic engine
-7. Implement form handling system
-8. Set up testing framework
+1. Implement remaining form steps
+2. Enhance validation system
+3. Add state management
+4. Improve error handling
+5. Add accessibility features
+6. Implement testing framework
+7. Complete documentation
+8. Security audit
 
 ## Risk Mitigation
 
 1. **Technical Risks**
-   - AI response accuracy
+   - Form validation accuracy
    - System scalability
    - Data security
-   - IRS API reliability
+   - Browser compatibility
 
-2. **Business Risks**
-   - Regulatory compliance
-   - User trust
-   - Cost management
-   - Competition
+2. **User Experience Risks**
+   - Form complexity
+   - Error messages
+   - Navigation flow
+   - Mobile responsiveness
 
 3. **Operational Risks**
    - System maintenance
    - User support
    - Data backup
-   - Disaster recovery 
+   - Performance monitoring 

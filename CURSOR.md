@@ -4,47 +4,54 @@
 Direct File is a free IRS service that allows taxpayers to electronically file federal tax returns directly with the IRS. It's designed to be mobile-friendly and accessible in both English and Spanish.
 
 ## Key Components
-1. **Interview-Based System**
-   - Converts complex tax code into plain language questions
-   - Translates answers into standard tax forms
-   - Integrates with IRS Modernized e-File (MeF) API
+1. **Wizard-Based System**
+   - Step-by-step tax filing process
+   - Smart form validation
+   - Real-time error checking
+   - Progress tracking
 
-2. **Fact Graph**
-   - Declarative, XML-based knowledge graph
-   - Written in Scala
-   - Runs on both JVM backend and client-side (via Scala.js)
-   - Handles incomplete information reasoning
+2. **Frontend Application**
+   - React-based web interface
+   - TypeScript for type safety
+   - Tailwind CSS for styling
+   - Vite for fast development
 
-3. **State Integration**
-   - Supports state/local tax filing through third-party tools
-   - Uses State API for data transfer
-   - Includes enriched JSON format for state revenue agencies
+3. **Backend Services**
+   - Express.js server
+   - RESTful API endpoints
+   - Logging system
+   - Data validation
 
 ## Development Team
-- IRS in-house technologists
-- USDS and GSA support
-- Vendor teams: TrussWorks, Coforma, and ATI
+- Open source contributors
+- Community-driven development
+- Focus on accessibility and user experience
 
 ## Getting Started
 - See `ONBOARDING.md` for local setup instructions
+- Frontend runs on http://localhost:5173
+- Backend runs on http://localhost:3001
 
 ## Important Notes
-- Some code is exempted due to PII, FTI, SBU, or NSS restrictions
-- Repository follows federal open source policies
-- Legal foundation includes various federal acts and memorandums
+- Repository follows open source best practices
+- MIT License for open collaboration
+- Focus on user privacy and data security
 
 ## Key Files
 - `README.md` - Main project documentation
 - `ONBOARDING.md` - Setup and development guide
+- `PROJECT_PLAN.md` - Project roadmap and architecture
 - `LICENSE` - Project license information
 
 ## Project Structure
 ```
 direct-file-easy-webui/
-├── direct-file/     # Main application code
+├── frontend/        # React frontend application
+├── backend/         # Express.js backend server
 ├── docs/           # Documentation
 ├── .git/           # Version control
 ├── LICENSE         # License file
 ├── ONBOARDING.md   # Setup guide
+├── PROJECT_PLAN.md # Project roadmap
 └── README.md       # Project overview
 ``` 
