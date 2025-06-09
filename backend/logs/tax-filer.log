@@ -1,0 +1,4 @@
+{"timestamp":"2025-06-07T16:15:39.075Z","level":"info","message":"Test log entry"}
+{"timestamp":"2025-06-07T16:32:21.197Z","level":"info","message":"Form submitted: {\"name\":\"anh dang\",\"email\":\"anhtdang92@gmail.com\",\"income\":\"1\",\"deductions\":\"1\"}"}
+{"timestamp":"2025-06-07T16:33:17.883Z","level":"info","message":"Form submitted: {\"name\":\"dasdas\",\"email\":\"dada@gmail.com\",\"income\":\"1\",\"deductions\":\"1\"}"}
+{"timestamp":"2025-06-07T16:34:08.206Z","level":"info","message":"test form submission"}

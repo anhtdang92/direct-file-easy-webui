@@ -1,339 +1,227 @@
-# Prism - AI-Powered Tax Assistance Platform
+# Prism Tax Assistant - Onboarding Guide
 
 ## Project Overview
-Prism is an open-source platform that helps users understand and optimize their taxes. It combines AI-powered document analysis with IRS tax code integration to provide accurate and up-to-date tax assistance.
+Prism Tax Assistant is an AI-powered tax preparation platform that helps users file their taxes accurately and efficiently. The platform uses advanced AI models to analyze tax documents, provide personalized tax advice, and ensure compliance with tax regulations.
 
 ## Prerequisites
-- Node.js 18+
 - Python 3.8+
+- Node.js 18+
 - PostgreSQL 15+
 - Redis 7+
 - Git
-- OpenAI API key (for AI features)
-- IRS API access (for tax code integration)
+- Docker (optional)
 
-## Installation
+## Installation Steps
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/prism.git
-cd prism
+git clone https://github.com/yourusername/prism-tax-assistant.git
+cd prism-tax-assistant
 ```
 
-### 2. Install Dependencies
+### 2. Backend Setup
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-#### Frontend
+### 3. Frontend Setup
 ```bash
 cd frontend
 npm install
 ```
 
-#### Backend
-```bash
-cd backend
-npm install
-```
-
-#### AI Service
+### 4. AI Service Setup
 ```bash
 cd ai_service
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 3. Environment Setup
+## Environment Setup
 
-#### Frontend (.env)
+### Backend (.env)
 ```
-VITE_API_URL=http://localhost:3000
-VITE_WS_URL=ws://localhost:3000
-```
-
-#### Backend (.env)
-```
-PORT=3000
 DATABASE_URL=postgresql://user:password@localhost:5432/prism
 REDIS_URL=redis://localhost:6379
 JWT_SECRET=your_jwt_secret
 OPENAI_API_KEY=your_openai_api_key
-IRS_API_KEY=your_irs_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
 ```
 
-#### AI Service (.env)
+### Frontend (.env)
+```
+VITE_API_URL=http://localhost:8000
+VITE_WS_URL=ws://localhost:8000
+```
+
+### AI Service (.env)
 ```
 OPENAI_API_KEY=your_openai_api_key
-IRS_API_KEY=your_irs_api_key
-MODEL_PATH=./models
-CACHE_DIR=./cache
+ANTHROPIC_API_KEY=your_anthropic_api_key
+DATABASE_URL=postgresql://user:password@localhost:5432/prism
 ```
 
-### 4. Database Setup
+## Database Setup
 ```bash
 cd backend
-npm run migrate
+alembic upgrade head
 ```
 
-### 5. IRS Data Setup
+## IRS Data Setup
 ```bash
 cd ai_service
 python scripts/setup_irs_data.py
 ```
 
-## Development Workflow
-
-### 1. Start Development Servers
-
-#### Frontend
-```bash
-cd frontend
-npm run dev
-```
-
-#### Backend
-```bash
-cd backend
-npm run dev
-```
-
-#### AI Service
-```bash
-cd ai_service
-python app.py
-```
-
-### 2. Running Tests
-```bash
-# Frontend tests
-cd frontend
-npm test
-
-# Backend tests
-cd backend
-npm test
-
-# AI service tests
-cd ai_service
-pytest
-
-# IRS data tests
-cd ai_service
-pytest tests/test_irs_integration.py
-```
-
-### 3. Code Quality
-```bash
-# Frontend
-cd frontend
-npm run lint
-npm run format
-
-# Backend
-cd backend
-npm run lint
-npm run format
-
-# AI Service
-cd ai_service
-flake8
-black .
-```
-
-## Project Structure
-```
-prism/
-├── frontend/           # React frontend
-├── backend/           # Node.js backend
-├── ai_service/        # Python AI service
-│   ├── models/        # ML models
-│   ├── utils/         # Utility functions
-│   │   ├── tax_code_service.py
-│   │   └── irs_publication_service.py
-│   └── cache/         # IRS data cache
-└── docs/             # Documentation
-```
-
 ## API Documentation
 
 ### Frontend API
-- `POST /api/documents/upload` - Upload tax documents
-- `GET /api/documents/:id` - Get document details
-- `GET /api/analysis/:id` - Get analysis results
-- `GET /api/tax-code/:section` - Get tax code section
-- `GET /api/publications/:id` - Get IRS publication
-
-### Backend API
 - `POST /api/auth/login` - User login
 - `POST /api/auth/register` - User registration
-- `GET /api/user/profile` - Get user profile
-- `PUT /api/user/settings` - Update user settings
-- `GET /api/subscription/plans` - Get subscription plans
+- `GET /api/documents` - List user documents
+- `POST /api/documents/upload` - Upload tax document
+- `GET /api/documents/{id}` - Get document details
+- `POST /api/analysis` - Analyze tax documents
+- `GET /api/export/formats` - Get supported export formats
+- `POST /api/export/{format}` - Export tax data
+- `GET /api/usage` - Get current usage statistics
+- `POST /api/chat/start` - Start tax filing conversation
+- `POST /api/chat/message` - Send message to tax assistant
+- `GET /api/chat/history` - Get conversation history
+
+### Backend API
+- `GET /api/tax-code` - Get tax code sections
+- `GET /api/publications` - Get IRS publications
+- `POST /api/validate` - Validate tax data
+- `GET /api/export/history` - Get export history
+- `POST /api/export/validate` - Validate export format
+- `GET /api/chat/state` - Get conversation state
+- `POST /api/chat/process` - Process user response
 
 ### AI Service API
-- `POST /api/ai/analyze` - Analyze document
-- `POST /api/ai/suggest` - Get tax suggestions
-- `POST /api/ai/explain` - Explain tax concepts
-- `GET /api/ai/tax-code` - Get tax code data
-- `GET /api/ai/publications` - Get IRS publications
+- `POST /api/ai/analyze` - Analyze tax documents
+- `POST /api/ai/validate` - Validate tax data
+- `POST /api/ai/export/validate` - Validate export data
+- `POST /api/ai/export/optimize` - Optimize export format
+- `POST /api/ai/chat/process` - Process chat message
+- `POST /api/ai/chat/validate` - Validate chat input
 
-## IRS Data Integration
+## Security Best Practices
+1. **API Key Management**
+   - Store API keys securely
+   - Rotate keys regularly
+   - Monitor key usage
+   - Implement rate limiting
 
-### Tax Code Service
-```python
-from utils.tax_code_service import TaxCodeService
+2. **Data Security**
+   - Encrypt sensitive data
+   - Implement access controls
+   - Regular security audits
+   - Monitor data access
 
-# Initialize service
-tax_service = TaxCodeService()
+3. **User Authentication**
+   - Implement JWT authentication
+   - Use secure password hashing
+   - Enable MFA
+   - Session management
 
-# Fetch specific section
-section = tax_service.get_section("26 USC 1")
+4. **Compliance**
+   - Follow tax regulations
+   - Implement data retention
+   - Privacy policy
+   - Terms of service
 
-# Search tax code
-results = tax_service.search("capital gains")
-
-# Get updates
-updates = tax_service.get_updates_since("2023-01-01")
-```
-
-### Publication Service
-```python
-from utils.irs_publication_service import IRSPublicationService
-
-# Initialize service
-pub_service = IRSPublicationService()
-
-# Fetch publication
-pub = pub_service.fetch_publication("17")
-
-# Search publications
-results = pub_service.search("business expenses")
-
-# Get related publications
-related = pub_service.get_related_publications("17")
-```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Database Connection**
-   - Check PostgreSQL is running
-   - Verify connection string
-   - Check user permissions
-
-2. **AI Service Issues**
-   - Verify API keys
-   - Check model files
-   - Monitor memory usage
-
-3. **IRS Data Issues**
-   - Check API key validity
-   - Verify cache directory
-   - Monitor update status
-
-4. **Frontend Issues**
-   - Clear browser cache
-   - Check API endpoints
-   - Verify environment variables
-
-### Debugging Tools
-
-1. **Backend**
-   - Node.js debugger
-   - PostgreSQL logs
-   - Redis monitor
-
-2. **AI Service**
-   - Python debugger
-   - Model logs
-   - IRS data logs
-
-3. **Frontend**
-   - React DevTools
-   - Network tab
-   - Console logs
-
-## Contributing
-
-### Code Style
-- Follow ESLint rules
-- Use Prettier formatting
-- Write unit tests
-- Document changes
-
-### Git Workflow
+## Development Workflow
 1. Create feature branch
-2. Make changes
-3. Run tests
+2. Implement changes
+3. Write tests
 4. Submit PR
 5. Code review
 6. Merge to main
 
-### Documentation
-- Update README
-- Document API changes
-- Add code comments
-- Update IRS data docs
+## Testing
+```bash
+# Backend tests
+cd backend
+pytest
 
-## Security
+# Frontend tests
+cd frontend
+npm test
 
-### Best Practices
-- Use environment variables
-- Encrypt sensitive data
-- Validate user input
-- Follow IRS guidelines
-
-### API Security
-- Rate limiting
-- Input validation
-- Error handling
-- Token management
-
-### Data Security
-- Encryption at rest
-- Secure transmission
-- Regular backups
-- Access control
-
-## Performance
-
-### Optimization
-- Cache IRS data
-- Optimize queries
-- Use indexes
-- Monitor memory
-
-### Monitoring
-- Track API usage
-- Monitor errors
-- Check performance
-- Watch IRS updates
+# AI Service tests
+cd ai_service
+pytest
+```
 
 ## Deployment
+```bash
+# Backend deployment
+cd backend
+docker build -t prism-backend .
+docker run -p 8000:8000 prism-backend
 
-### Production Setup
-1. Configure servers
-2. Set up databases
-3. Deploy services
-4. Configure SSL
-5. Set up monitoring
+# Frontend deployment
+cd frontend
+npm run build
+docker build -t prism-frontend .
+docker run -p 3000:3000 prism-frontend
 
-### CI/CD
-- GitHub Actions
-- Automated tests
-- Deployment checks
-- IRS data updates
+# AI Service deployment
+cd ai_service
+docker build -t prism-ai .
+docker run -p 8001:8001 prism-ai
+```
+
+## Monitoring
+- API usage tracking
+- Error monitoring
+- Performance metrics
+- User analytics
+- Cost monitoring
+- Export statistics
+- Chat metrics
 
 ## Support
+- Documentation
+- FAQ
+- Issue tracking
+- Feature requests
+- Bug reports
+- Chat support
+- Email support
 
-### Getting Help
-- Check documentation
-- Search issues
-- Join community
-- Contact support
+## Export Options
+- TurboTax export
+- H&R Block export
+- TaxAct export
+- IRS e-file format
+- Printable tax forms
+- Custom reports
 
-### Maintenance
-- Regular updates
-- Security patches
-- IRS data sync
-- Performance tuning
+## Chat Interface
+- Natural language processing
+- Context tracking
+- Form collection
+- Real-time validation
+- Progress tracking
+- Voice input
+- Accessibility features
+
+## Next Steps
+1. Set up development environment
+2. Configure API keys
+3. Initialize database
+4. Start development server
+5. Begin implementation
+6. Test features
+7. Deploy changes
+8. Monitor performance
+9. Gather feedback
+10. Iterate improvements
 
 
