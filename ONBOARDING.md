@@ -3,6 +3,61 @@
 ## Project Overview
 Prism Tax Assistant is an AI-powered tax preparation platform that helps users file their taxes accurately and efficiently. The platform uses advanced AI models to analyze tax documents, provide personalized tax advice, and ensure compliance with tax regulations.
 
+## Project Structure
+```
+direct-file-easy-webui/
+├── frontend/           # React frontend application
+│   ├── src/           # Source code
+│   │   ├── components/    # React components
+│   │   ├── pages/        # Page components
+│   │   ├── services/     # API services
+│   │   ├── utils/        # Utility functions
+│   │   └── styles/       # CSS/SCSS files
+│   ├── public/        # Static assets
+│   └── package.json   # Frontend dependencies
+├── backend/           # Express.js backend server
+│   ├── src/          # Source code
+│   │   ├── controllers/  # Route controllers
+│   │   ├── models/       # Data models
+│   │   ├── routes/       # API routes
+│   │   ├── services/     # Business logic
+│   │   └── utils/        # Utility functions
+│   ├── tests/        # Backend tests
+│   └── package.json  # Backend dependencies
+├── ai_service/        # AI service implementation
+│   ├── src/          # Source code
+│   │   ├── models/       # AI models
+│   │   ├── processors/   # Document processors
+│   │   ├── services/     # AI services
+│   │   └── utils/        # Utility functions
+│   ├── tests/        # AI service tests
+│   └── requirements.txt # Python dependencies
+├── ai-tax-filer/      # Tax filing AI components
+│   ├── src/          # Source code
+│   │   ├── analyzers/    # Tax analyzers
+│   │   ├── validators/   # Tax validators
+│   │   └── processors/   # Tax processors
+│   └── tests/        # AI tax filer tests
+├── direct-file/       # Core tax filing components
+│   ├── src/          # Source code
+│   │   ├── forms/        # Tax forms
+│   │   ├── validators/   # Form validators
+│   │   └── processors/   # Form processors
+│   └── tests/        # Core component tests
+├── docs/             # Project documentation
+│   ├── api/          # API documentation
+│   ├── guides/       # User guides
+│   └── architecture/ # Architecture diagrams
+├── venv/             # Python virtual environment
+├── .pytest_cache/    # Python test cache
+├── .git/             # Version control
+├── .gitignore        # Git ignore rules
+├── LICENSE           # MIT License
+├── ONBOARDING.md     # Setup and development guide
+├── PROJECT_PLAN.md   # Project roadmap and architecture
+└── README.md         # Project overview
+```
+
 ## Prerequisites
 - Python 3.8+
 - Node.js 18+

@@ -46,14 +46,36 @@ Direct File is a free IRS service that allows taxpayers to electronically file f
 ## Project Structure
 ```
 direct-file-easy-webui/
-├── frontend/        # React frontend application
-├── backend/         # Express.js backend server
-├── docs/           # Documentation
-├── .git/           # Version control
-├── LICENSE         # License file
-├── ONBOARDING.md   # Setup guide
-├── PROJECT_PLAN.md # Project roadmap
-└── README.md       # Project overview
+├── frontend/           # React frontend application
+│   ├── src/           # Source code
+│   ├── public/        # Static assets
+│   └── package.json   # Frontend dependencies
+├── backend/           # Express.js backend server
+│   ├── src/          # Source code
+│   ├── tests/        # Backend tests
+│   └── package.json  # Backend dependencies
+├── ai_service/        # AI service implementation
+│   ├── src/          # Source code
+│   ├── tests/        # AI service tests
+│   └── requirements.txt # Python dependencies
+├── ai-tax-filer/      # Tax filing AI components
+│   ├── src/          # Source code
+│   └── tests/        # AI tax filer tests
+├── direct-file/       # Core tax filing components
+│   ├── src/          # Source code
+│   └── tests/        # Core component tests
+├── docs/             # Project documentation
+│   ├── api/          # API documentation
+│   ├── guides/       # User guides
+│   └── architecture/ # Architecture diagrams
+├── venv/             # Python virtual environment
+├── .pytest_cache/    # Python test cache
+├── .git/             # Version control
+├── .gitignore        # Git ignore rules
+├── LICENSE           # MIT License
+├── ONBOARDING.md     # Setup and development guide
+├── PROJECT_PLAN.md   # Project roadmap and architecture
+└── README.md         # Project overview
 ```
 
 # Development Notes
